@@ -1,0 +1,105 @@
+
+li .recetas{
+    font-family: "Lucida Calligraphy";
+    font-size: 2rem;
+    font-style: italic;
+}
+
+.altura_aside{
+    height: 600px;
+}
+
+.tarjeta{
+    height: 400px;
+    width: 350px;
+}
+
+.color-poulet{
+    background-color: #FEDDEA; /*color institucional */
+}
+.cursiva-poulet{
+    font-family: "Lucida Calligraphy";
+    font-style: italic;
+}
+
+.card-poulet{
+    background-color: snow;
+    width: 350px;
+}
+
+.poulet-header-Carnes{
+    background-color: #FEDDEA; /*color institucional */
+    color: aliceblue;
+    background-image: url(../res/carnes-header.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.poulet-header-Pastas{
+    background-color: #FEDDEA; /*color institucional */
+    color: aliceblue;
+    background-image: url(../res/pastas-header.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.poulet-header-Pescados{
+    background-color: #FEDDEA; /*color institucional */
+    color: aliceblue;
+    background-image: url(../res/pescados-header.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.poulet-header-Pollos{
+    background-color: #FEDDEA; /*color institucional */
+    color: aliceblue;
+    background-image: url(../res/pollos-header.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.poulet-holder{
+    height: 6rem;
+    overflow: hidden;
+}
+
+.poulet-header-Postres{
+    background-color: #FEDDEA; /*color institucional */
+    color: aliceblue;
+    background-image: url(../res/postres-header.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.poulet-header{
+    background-color: #FEDDEA; /*color institucional */
+    color: white;
+    background-image: url(../res/header.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.poulet-nombre-receta{
+    font-size: 1.25rem;
+}
+
+.poulet-cross-icon{
+    font-size: 3rem;
+    color: red;
+}
+
+.poulet-iconos-cocinar{
+    font-size: 30px;
+    color: dimgrey;
+}
+
+.poulet-progressBar{
+    width:100%;
+}

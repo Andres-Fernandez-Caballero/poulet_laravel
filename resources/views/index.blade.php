@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 
+<?php
+
+?>
+
 <html lang="es">
 
 <head>
@@ -9,8 +13,7 @@
     <meta name="description" content="Pagina web dedicada a enseñar el arte de la gastronomia a todo el mundo">
     <meta name="author" content="Andres Pablo Fernandez Caballero">
 
-    <!-- todo: cambiar y agrregar imagen de favicon -->
-    <link rel="shortcut icon" href="res/icon_poulet.png" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset('img/icon_poulet.png')}}" type="image/x-icon">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -21,7 +24,7 @@
 
 
     <!-- Link to your CSS file -->
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="{{asset('css/poulet_style.css')}}">
 </head>
 
 <body class="container-fluid rgba-cyan-slight">
@@ -29,10 +32,14 @@
         <aside class="d-none d-sm-none d-md-block h-50 mx-auto col-3 p-0">
             <ul class="altura_aside m-4 card nav flex-column ">
                 <li class="color-poulet">
-                    <img src="res/logo.png" class="mx-auto d-block img-fluid rounded-circle m-4" alt="logo" height="135" width="135"></li>
+                    <img src="{{asset('img/logo.png')}}" class="mx-auto d-block img-fluid rounded-circle m-4" alt="logo" height="135" width="135"></li>
                 <li class="mt-4">
                     <h2 class="text-center recetas">Indice</h2>
                 </li>
+                <li class="nav-item"><a class="nav-link text-center pink-text " href="#">index</a></li>
+                <li class="nav-item"><a class="nav-link text-center pink-text " href="#">index</a></li>
+                <li class="nav-item"><a class="nav-link text-center pink-text " href="#">index</a></li>
+                <li class="nav-item"><a class="nav-link text-center pink-text " href="#">index</a></li>
                 <?//php navbarIndex($links_menu,'vertical');?>
             </ul>
         </aside>
@@ -45,14 +52,26 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav ml-auto">
-                            <?//php navbarIndex($links_menu,'horizontal');?>
+                            <li class="nav-item"><a class="nav-link text-right text-white" href="#">index</a></li>
+                            <li class="nav-item"><a class="nav-link text-right text-white" href="#">index</a></li>
+                            <li class="nav-item"><a class="nav-link text-right text-white" href="#">index</a></li>
+                            <li class="nav-item"><a class="nav-link text-right text-white" href="#">index</a></li>
                         </ul>
                     </div>
                 </div>
             </nav>
 
             <section class="card m-2">
-
+                <?php
+                /*
+                if(!empty($_GET['page'])):
+                    $page = $_GET['page'];
+                    FileControl::selectorIndex($page);
+                else:
+                    FileControl::cargarModulo('secciones/home.php');
+                endif;
+                */
+                ?>
             </section>
         </main>
 </div>
