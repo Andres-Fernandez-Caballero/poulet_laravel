@@ -12,9 +12,9 @@ class WebController extends Controller
 
     public function recetas(Receta $receta){
 
-        $categorias = $receta->all()->groupBy('recetas.categoria');
+        $lista= $receta->all()->groupBy('categoria');
 
         return view('web.recetas')
-            ->with('categorias',$categorias);
+            ->with('lista',$lista);
     }
 }
