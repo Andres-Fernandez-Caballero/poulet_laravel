@@ -16,3 +16,10 @@ Route::get('/', [
     'uses' => 'WebController@index'
 ]);
 
+Route::get('/recetas', [
+    'as'   => 'web.recetas',
+    'uses' => 'WebController@recetas'
+]);
+
+
+

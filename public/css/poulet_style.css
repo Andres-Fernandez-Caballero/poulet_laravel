@@ -30,7 +30,7 @@ li .recetas{
 .poulet-header-Carnes{
     background-color: #FEDDEA; /*color institucional */
     color: aliceblue;
-    background-image: url(../res/carnes-header.jpg);
+    background-image: url(../img/carnes-header.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -39,7 +39,7 @@ li .recetas{
 .poulet-header-Pastas{
     background-color: #FEDDEA; /*color institucional */
     color: aliceblue;
-    background-image: url(../res/pastas-header.jpg);
+    background-image: url(../img/pastas-header.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -48,7 +48,7 @@ li .recetas{
 .poulet-header-Pescados{
     background-color: #FEDDEA; /*color institucional */
     color: aliceblue;
-    background-image: url(../res/pescados-header.jpg);
+    background-image: url(../img/pescados-header.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -57,7 +57,7 @@ li .recetas{
 .poulet-header-Pollos{
     background-color: #FEDDEA; /*color institucional */
     color: aliceblue;
-    background-image: url(../res/pollos-header.jpg);
+    background-image: url(../img/pollos-header.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -71,7 +71,7 @@ li .recetas{
 .poulet-header-Postres{
     background-color: #FEDDEA; /*color institucional */
     color: aliceblue;
-    background-image: url(../res/postres-header.jpg);
+    background-image: url(../img/postres-header.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -80,7 +80,7 @@ li .recetas{
 .poulet-header{
     background-color: #FEDDEA; /*color institucional */
     color: white;
-    background-image: url(../res/header.jpg);
+    background-image: url(../img/header.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
