@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<?php
+@php
 $links = [
-    "Home" => route("web.index"),
-    "Recetas" => route("web.recetas"),
-    "Postres" => route("web.postres"),
-    "Contacto" => 'route("web.contacto")',
-    "Panel" => route('panel.index')
+    "Recetas" => route("panel.index"),
+    "Postres" => route('panel.postres'),
+    "Poulet" => route('web.index')
 ];
-?>
+@endphp
 
 <html lang="es">
 

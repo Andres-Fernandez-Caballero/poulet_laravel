@@ -19,9 +19,11 @@ class recetasSeeder extends Seeder
                 "id_recetas"       => $i,
                 "titulo"   => $faker->word,
                 "categoria" => $this->cargar_Categoria_random($faker->numberBetween(0,4)),
-                "imagen"    => $faker->md5,
+                "imagen"    => 'img/quemada.jpg',
                 "preparacion" => $faker->text,
-                "fk_autor"      => $faker->numberBetween(1,10)
+                "fk_autor"      => $faker->numberBetween(1,10),
+                'dificultad' => $faker->randomElement(['Muy Facil','Facil','Moderado','Difici','Master Cheft']),
+                'tiempo_preparacion' => $faker->randomElement(['30','45','60','90','120'])
             ]);
         endfor;
     }

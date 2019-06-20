@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
-    @include('partes.header',$campos = ['fondo'=>'poulet-header','titulo'=>'Poulet Recetas'])
+    @include('partes.header',$header = ['fondo'=>'poulet-header','titulo'=>'Poulet Recetas'])
     <article class="m-1  mb-5 row">
         <div class="col-6">
             <h3 class="pink-text mb-4 poulet">Bienvenidos</h3>
