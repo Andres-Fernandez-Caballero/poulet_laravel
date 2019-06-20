@@ -1,8 +1,8 @@
 <article class="m-2 my-4 row">
     <div class="col-lg-4">
         <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4">
-            <!-- TODO: agregar imagen de la receta y descripcion en alt -->
-            <img class="img-fluid" src="{{asset('img/quemada.jpg')}}" alt="descript">
+            <!-- TODO: descripcion en alt -->
+            <img class="img-fluid" src="{{asset("$receta->imagen")}}" alt="descript">
             <a><div class="mask rgba-white-slight"></div></a>
         </div>
     </div>

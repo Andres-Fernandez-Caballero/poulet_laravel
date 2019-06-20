@@ -11,19 +11,17 @@ class PanelController extends Controller
 
         try{
             $listaRecetas = Receta::all()
-                ->groupBy('categoria')
-                ->where('categoria','!=','Postres');
-
-            $listaPostres = Receta::all()
-                ->where('categoria','=','Postres');
+                ->where('categoria','!=','Postres')
+                ->sortBy('categoria')
+                ->groupBy('categoria');
 
         }catch (\Exception $exception){
-            return \view('web.recetas');
+            $error = $exception->getMessage();
+            return \view('web.page_error')->with('error',$error);
         }
         return view('panel.index')
             ->with('header',$header)
-            ->with('listaRecetas',$listaRecetas)
-            ->with('listaPostres',$listaPostres);
+            ->with('listaRecetas',$listaRecetas);
     }
 
     public function listadoPostres(){
@@ -41,6 +39,12 @@ class PanelController extends Controller
             ->with('header',$header)
             ->with('listaPostres',$listadoPostres);
 
+    }
+
+    public function agregarReceta(){
+        $header = ['fondo'=>'poulet-header','titulo'=>'Agregar Receta'];
+        return view('panel.form_agregar')
+            ->with('header',$header);
     }
 
 }

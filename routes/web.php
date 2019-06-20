@@ -13,37 +13,30 @@
 
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PanelController;
+use App\Http\Controllers\WebController;
 
-Route::get('/', [
-    'as'   => 'web.index',
-    'uses' => 'WebController@index'
-]);
+/*** Rutas web ***/
 
-Route::get('/recetas', [
-    'as'   => 'web.recetas',
-    'uses' => 'WebController@recetas'
-]);
+Route::get('/','WebController@index')->name('web.index');
 
-Route::get('/postres', [
-    'as'   => 'web.postres',
-    'uses' => 'WebController@postres'
-]);
+Route::get('/recetas','WebController@recetas')->name('web.recetas');
 
-Route::get('/preparacion/{id}',[
-    'as'   => 'web.preparacion',
-    'uses' => 'WebController@preparacion'
-]
-);
+Route::get('/postres','WebController@postres')->name('web.postres');
 
-Route::get('/panel',[
-    'as'   => 'panel.index',
-    'uses' => 'PanelController@index'
-]);
+Route::get('/preparacion/{id}','WebController@preparacion')->name('web.preparacion');
 
-Route::get('/panel/Postres',[
-    'as'   => 'panel.postres',
-    'uses' => 'PanelController@listadoPostres'
-]);
+/*** Rutas Panel ***/
+
+Route::get('/panel','PanelController@index')->name('panel.index');
+
+Route::get('/panel/Postres','PanelController@listadoPostres')->name('panel.postres');
+
+Route::get('/panel/agregar_receta','PanelController@agregarReceta')->name('panel.agregarReceta');
+
+/*** Rutas formularios Recetas ***/
+Route::delete('/recetas/{id}/eliminar','RecetasController@eliminar')->name('recetas.eliminar');
+
 
 
 

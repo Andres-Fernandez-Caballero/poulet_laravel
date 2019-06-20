@@ -29,9 +29,9 @@
                              src="{{asset("$receta->imagen")}}" alt="descript"
                              height="90" width="90"></td>
                     <td class="align-middle">
-                        <form class="d-flex justify-content-center" action="" method='post'>
-                            <input type="hidden" name="nombre_receta" value="">
-                            <input type="hidden" name="categoria_receta" value="">
+                        <form class="d-flex justify-content-center" action="{{route("recetas.eliminar",$receta->id_recetas)}}" method='post'>
+                            @method('DELETE')
+                            @csrf
                             <button type="submit" class="mx-auto btn btn-sm btn-pink">Eliminar</button>
                         </form>
                     </td>
