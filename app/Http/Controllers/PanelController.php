@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Autor;
 use App\Models\Receta;
 
 class PanelController extends Controller
@@ -43,8 +44,15 @@ class PanelController extends Controller
 
     public function agregarReceta(){
         $header = ['fondo'=>'poulet-header','titulo'=>'Agregar Receta'];
+        $autores = Autor::all();
         return view('panel.form_agregar')
-            ->with('header',$header);
+            ->with('header',$header)
+            ->with('categorias',Receta::$LISTA_CATEGORIAS)
+            ->with('dificultades',Receta::$LISTA_DIFICULTADES)
+            ->with('tiempos',Receta::$LISTA_TIEMPOS)
+            ->with('autores',$autores);
+
+
     }
 
 }

@@ -23,13 +23,13 @@
                 @foreach($recetas as $receta)
                 <tr>
                     <th scope="row" class="align-middle font-weight-bold">
-                       {{$receta->titulo}}
+                        <a href="{{route('web.preparacion',$receta->id_recetas)}}">{{$receta->titulo}}</a>
                     </th>
                     <td><img class="mx-auto rounded-circle d-block"
                              src="{{asset("$receta->imagen")}}" alt="descript"
                              height="90" width="90"></td>
                     <td class="align-middle">
-                        <form class="d-flex justify-content-center" action="{{route("recetas.eliminar",$receta->id_recetas)}}" method='post'>
+                        <form class="d-flex justify-content-center" action="{{route('receta.destroy',$receta->id_recetas)}}" method='post'>
                             @method('DELETE')
                             @csrf
                             <button type="submit" class="mx-auto btn btn-sm btn-pink">Eliminar</button>

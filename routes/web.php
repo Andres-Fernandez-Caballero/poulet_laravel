@@ -34,8 +34,8 @@ Route::get('/panel/Postres','PanelController@listadoPostres')->name('panel.postr
 
 Route::get('/panel/agregar_receta','PanelController@agregarReceta')->name('panel.agregarReceta');
 
-/*** Rutas formularios Recetas ***/
-Route::delete('/recetas/{id}/eliminar','RecetasController@eliminar')->name('recetas.eliminar');
+/*** Rutas controlador Recetas ***/
+Route::resource('/receta','RecetasController');
 
 
 

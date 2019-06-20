@@ -15,10 +15,10 @@
             <img src="{{asset("$receta->imagen")}}" alt="descript" height="250">
         </aside>
         </section>
-
-    <article class="p-2">
+    </div>
+    <article class="m-2 p-2">
         <h3>Preparacion</h3>
         <p>{{$receta->preparacion}}</p>
     </article>
-    </div>
+
 @endsection
