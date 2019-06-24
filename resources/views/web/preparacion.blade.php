@@ -3,7 +3,7 @@
 @section('content')
 
     @include('partes.header')
-
+<!-- TODO: hacer mas linda la seccion preparacion -->
     <div class="row m-2">
         <section class="row">
         <article class="col">

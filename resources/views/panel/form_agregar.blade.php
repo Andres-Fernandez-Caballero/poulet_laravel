@@ -2,6 +2,7 @@
 
 @section('content')
     @include('partes.header',$header)
+    <!-- TODO: hacer mas atractiva la seccion formulario receta -->
     <form action="{{route('receta.store')}}" method="post" class="m-4">
         @csrf
         <div class="col-md-6">
