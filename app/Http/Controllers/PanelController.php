@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Autor;
 use App\Models\Receta;
 
+
 class PanelController extends Controller
 {
     public function index(){
@@ -18,7 +19,7 @@ class PanelController extends Controller
 
         }catch (\Exception $exception){
             $error = $exception->getMessage();
-            return \view('web.page_error')->with('error',$error);
+            return view('web.page_error')->with('error',$error);
         }
         return view('panel.index')
             ->with('header',$header)
@@ -40,6 +41,19 @@ class PanelController extends Controller
             ->with('header',$header)
             ->with('listaPostres',$listadoPostres);
 
+    }
+
+    public function listarAutores(){
+        $header = ['fondo'=>'poulet-header','titulo'=>'Panel Master Cheft'];
+
+        try{
+            $listadoAutores = Autor::all();
+        }catch (\Exception $ex){
+            //TODO implementar exepcion
+        }
+        return view('panel.autores')
+            ->with('header',$header)
+            ->with('listaAutores',$listadoAutores);
     }
 
     public function agregarReceta(){

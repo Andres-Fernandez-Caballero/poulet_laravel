@@ -3,6 +3,7 @@
 $links = [
     "Recetas" => route("panel.index"),
     "Postres" => route('panel.postres'),
+    'autores' => route('panel.autores'),
     'Agregar Receta' => route('panel.agregarReceta'),
     "Poulet" => route('web.index')
 ];
