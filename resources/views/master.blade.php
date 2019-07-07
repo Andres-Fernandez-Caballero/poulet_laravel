@@ -9,7 +9,7 @@ $links = [
 ];
 ?>
 
-<html lang="es">
+<html lang="es" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">

@@ -18,7 +18,10 @@ class RecetasController extends Controller
      */
     public function index()
     {
-        //
+        $recetas = Receta::all();
+        //TODO: crear vista panel recetas este mostrara la lista de las recetas
+        return null; //view('panel.recetas')->with('recetas',$recetas);
+
     }
 
     /**
