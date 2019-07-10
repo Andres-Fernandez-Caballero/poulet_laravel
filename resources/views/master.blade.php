@@ -4,8 +4,8 @@ $links = [
     "Home" => route("web.index"),
     "Recetas" => route("web.recetas"),
     "Postres" => route("web.postres"),
-    "Contacto" => 'route("web.contacto")',
-    "Panel" => route('panel.index')
+    "Contacto" => 'route("web.contacto")'
+    /*,"Panel" => route('panel.index')*/
 ];
 ?>
 

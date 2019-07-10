@@ -11,5 +11,22 @@
         @empty
         <p class="text-danger">No hay links cargados</p>
         @endforelse
+        <hr>
+        @guest
+            <li class="nav-item">
+                <a class="nav-link text-center pink-text" href="{{route('login')}}">login</a>
+            </li>
+            @if (Route::has('register'))
+                <li class="nav-item">
+                    <a class="nav-link text-center pink-text" href="{{route('register')}}">Registracion</a>
+                </li>
+            @endif
+        @else
+            <li class="nav-item"><p class="text-center pink-text">{{\Illuminate\Support\Facades\Auth::user()->name}}</p></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link text-center pink-text" href="{{route('logout')}}">
+                    logout
+                </a>
+        @endguest
     </ul>
 </div>

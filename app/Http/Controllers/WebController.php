@@ -69,4 +69,9 @@ class WebController extends Controller
             ->with('receta',$receta);
     }
 
+    public function contacto(){
+
+    }
+
+
 }
