@@ -26,6 +26,10 @@ Route::get('/postres','WebController@postres')->name('web.postres');
 
 Route::get('/preparacion/{id}','WebController@preparacion')->name('web.preparacion');
 
+Route::get('/contacto','WebController@contacto')->name('web.contacto');
+
+Route::post('contact','ContactoController@store')->name('contacto.store');
+
 /*** Rutas Panel ***/
 
 Route::get('/panel','PanelController@index')->name('panel.index');
@@ -39,16 +43,12 @@ Route::get('/panel/autores','PanelController@listarAutores')->name('panel.autore
 /*** Rutas controlador Recetas ***/
 Route::resource('/receta','RecetasController');
 
+/*** Rutas controlador Usuarios ***/
+Route::post('users/{id}','UserController@updatePass')->name('user.update.pass');
+Route::post('user/{id}','UserController@updateImg')->name('user.update.img');
+Route::resource('users','UserController');
 
-
-
-
+/*** Rutas auth ***/
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
-
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/logout','Auth\LoginController@logout')->name('logout');

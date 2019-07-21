@@ -4,7 +4,7 @@ $links = [
     "Home" => route("web.index"),
     "Recetas" => route("web.recetas"),
     "Postres" => route("web.postres"),
-    "Contacto" => 'route("web.contacto")'
+    "Contacto" => route("web.contacto")
     /*,"Panel" => route('panel.index')*/
 ];
 ?>
@@ -15,6 +15,7 @@ $links = [
     <meta charset="UTF-8">
     <title>Las Mejores Recetas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Pagina web dedicada a enseñar el arte de la gastronomia a todo el mundo">
     <meta name="author" content="Andres Pablo Fernandez Caballero">
 
@@ -26,20 +27,22 @@ $links = [
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.14/css/mdb.min.css" rel="stylesheet">
     <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/poulet_style.css')}}">
 </head>
 
-<body class="container-fluid rgba-cyan-slight row">
-<aside class="d-none d-sm-none d-md-block h-50 mx-auto col-3 p-0">
-    @include('partes.sidebar',$links)
-</aside>
-<div class="col-sm-12 col-md-9">
-    @include('partes.navbar',$links)
-    <main class="card m-2">
-        @yield('content')
-    </main>
+<body class="container-fluid rgba-cyan-slight">
+<div id="app" class="row">
+    <aside class="d-none d-sm-none d-md-block h-50 mx-auto col-3 p-0">
+        @include('partes.sidebar',$links)
+    </aside>
+    <div class="col-sm-12 col-md-9">
+        @include('partes.navbar',$links)
+        <main class="card m-2">
+            @yield('content')
+        </main>
+    </div>
 </div>
-
 
 <!-- JQuery -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

@@ -9,14 +9,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
-
+    private const IMG_DEFAULT = 'img/quemada.jpg';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','img','rol'
     ];
 
     /**
@@ -36,4 +36,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getUserImgAttribute(){
+
+        /* al crear la base de datos se establece la imagen como null
+         y luego el usuario elije una propia */
+
+        if($this->attributes['img']== 'null'){
+            $img = self::IMG_DEFAULT;
+        }else{
+            $img = $this->attributes['img'];
+        }
+        return $img;
+    }
 }

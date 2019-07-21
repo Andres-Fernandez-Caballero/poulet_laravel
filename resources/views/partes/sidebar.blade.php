@@ -11,7 +11,7 @@
         @empty
         <p class="text-danger">No hay links cargados</p>
         @endforelse
-        <hr>
+        <hr class="mx-5">
         @guest
             <li class="nav-item">
                 <a class="nav-link text-center pink-text" href="{{route('login')}}">login</a>
@@ -22,11 +22,19 @@
                 </li>
             @endif
         @else
-            <li class="nav-item"><p class="text-center pink-text">{{\Illuminate\Support\Facades\Auth::user()->name}}</p></li>
-            <li class="nav-item dropdown">
-                <a class="nav-link text-center pink-text" href="{{route('logout')}}">
-                    logout
+            <li class="nav-item"><a href="{{route('home')}}" class="nav-link text-center pink-text">{{\Illuminate\Support\Facades\Auth::user()->name}}</a></li>
+            <li class="nav-item">
+                <a class="nav-link text-center pink-text" href="{{ route('logout') }}"
+                   onclick="
+                        event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                    Logout
                 </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </li>
         @endguest
     </ul>
 </div>
