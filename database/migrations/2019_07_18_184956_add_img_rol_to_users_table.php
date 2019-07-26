@@ -14,8 +14,8 @@ class AddImgRolToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('img')->default('null');
-            $table->enum('rol',['master','admin','user'])->nullable();
+            $table->string('img')->default('null')->nullable();
+            $table->enum('rol',['master','admin','user'])->default('user');
         });
     }
 

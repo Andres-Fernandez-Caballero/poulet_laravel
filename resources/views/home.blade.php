@@ -27,12 +27,12 @@
         <h2 class="color-poulet cursiva-poulet card-header">Detalles</h2>
         <div class="card-body row">
             <div class="pt-5 col-6">
-                <p class="ml-4">Nombre: <span>{{\Illuminate\Support\Facades\Auth::user()->name}}</span></p>
-                <p class="ml-4">Mail: <span>{{\Illuminate\Support\Facades\Auth::user()->email}}</span></p>
-                <p class="ml-4">Permisos: <span>admin</span></p>
+                <p class="ml-4 poulet-font-125">Nombre: <span class="cursiva-poulet">{{$auth_user->name}}</span></p>
+                <p class="ml-4 poulet-font-125">Mail: <span class="cursiva-poulet">{{$auth_user->email}}</span></p>
+                <p class="ml-4 poulet-font-125">Permisos: <span class="cursiva-poulet">{{$auth_user->rol}}</span></p>
             </div>
             <div class="col-6">
-                <img class="d-block mx-auto rounded" src="{{asset(\Illuminate\Support\Facades\Auth::user()->getUserImgAttribute())}}" height="200" alt="avatar del usuario">
+                <img class="d-block mx-auto img-thumbnail" src="{{$auth_user->getUserImgAttribute()}}"  alt="avatar del usuario">
             </div>
             <div class="col-12">
                 <!-- Basic dropdown -->
@@ -41,7 +41,7 @@
                 </button>
 
                 <div class="dropdown-menu">
-                    <a class="dropdown-item poulet-link cursiva-poulet" href="#">Cambiar nombre</a>
+                    <a class="dropdown-item" href="#modalCambiarNombre" data-toggle="modal">Cambiar nombre</a>
                     <a class="dropdown-item" href="#modalCambiarPass" data-toggle="modal">Cambiar Contraseña</a>
                     <a class="dropdown-item"  data-toggle="modal" href="#modalCart">Cambiar Imagen de Perfil</a>
                     <div class="dropdown-divider"></div>
@@ -67,15 +67,15 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group p-2">
-                            <label for="pass_anterior">Contraseña Anterior</label>
+                            <label class="cursiva-poulet" for="pass_anterior">Contraseña Anterior</label>
                             <input class="form-control" type="password" id="pass_anterior" name="pass_anterior" >
                         </div>
                         <div class="form-group p-2">
-                            <label for="pass_nuevo">Contraseña Nueva</label>
+                            <label class="cursiva-poulet" for="pass_nuevo">Contraseña Nueva</label>
                             <input class="form-control" type="password" id="pass_nuevo" name="pass_nuevo" >
                         </div>
                         <div class="form-group p-2">
-                            <label for="pass_confirm">Repita su nueva Contraseña</label>
+                            <label class="cursiva-poulet" for="pass_confirm">Repita su nueva Contraseña</label>
                             <input class="col form-control" type="password" id="pass_confirm" name="pass_confirm" >
                         </div>
                     </div>
@@ -94,7 +94,7 @@
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header pink accent-1">
-                    <h3 class=" white-text modal-title text-center" style="font-size: 125%" id="myModalLabel">Cambiar Imagen de Perfil</h3>
+                    <h3 class=" white-text modal-title poulet-font-125 text-center" id="myModalLabel">Cambiar Imagen de Perfil</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -103,8 +103,8 @@
                     @csrf
                     <div class="modal-body">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="img_nueva" name="img_nueva">
-                            <label class="custom-file-label" style="" for="img_nueva">Elija una imagen</label>
+                            <input type="file" class="custom-file-input" name="img_nueva" id="img_nueva" accept="image/jpeg,image/png,image/gif">
+                            <label class="custom-file-label text-truncate" for="img_nueva" data-browse="Archivo">Elija una Imagen</label>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -136,6 +136,34 @@
                         <button class="btn btn-outline-info" data-dismiss="modal">No</button>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal cambiar nombre -->
+    <div class="modal fade right" id="modalCambiarNombre" tabindex="-1" role="dialog" aria-labelledby="myModalLabelNombre" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-right" role="document">
+            <div class="modal-content">
+                <div class="modal-header pink accent-1">
+                    <h3 class="modal-title white-text text-center" id="myModalLabelNombre">Cambiar Contraseña</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form action="{{route('user.update.name',$auth_user->id)}}" method="post">
+                    @method('PUT')
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group p-2">
+                            <label class="cursiva-poulet" for="nombre_nuevo">Elija un nuevo nombre de usuario</label>
+                            <input class="form-control" type="text" id="nombre_nuevo" name="nombre_nuevo" placeholder="{{$auth_user->name}}" value="" >
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="p-2 btn btn-outline-pink" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="p-2 btn btn-outline-info">Guardar Cambios</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

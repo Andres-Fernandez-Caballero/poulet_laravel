@@ -44,6 +44,7 @@ Route::get('/panel/autores','PanelController@listarAutores')->name('panel.autore
 Route::resource('/receta','RecetasController');
 
 /*** Rutas controlador Usuarios ***/
+Route::put('user/{id}','UserController@updateName')->name('user.update.name');
 Route::post('users/{id}','UserController@updatePass')->name('user.update.pass');
 Route::post('user/{id}','UserController@updateImg')->name('user.update.img');
 Route::resource('users','UserController');

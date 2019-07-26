@@ -5,11 +5,13 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Image;
 
 class User extends Authenticatable
 {
     use Notifiable;
-    private const IMG_DEFAULT = 'img/quemada.jpg';
+    private const IMG_DEFAULT = 'quemada.jpg';
     /**
      * The attributes that are mass assignable.
      *
@@ -42,11 +44,14 @@ class User extends Authenticatable
         /* al crear la base de datos se establece la imagen como null
          y luego el usuario elije una propia */
 
-        if($this->attributes['img']== 'null'){
-            $img = self::IMG_DEFAULT;
-        }else{
-            $img = $this->attributes['img'];
-        }
-        return $img;
+        $avatar = $this->attributes['img'] ;
+
+            if(!Storage::disk('local')->exists($avatar)){
+                $url = 'imagenes/medium/'.self::IMG_DEFAULT;
+            }else{
+                $url = url('imagenes/medium/app/'.$this->attributes['img']);
+            }
+
+        return $url;
     }
 }

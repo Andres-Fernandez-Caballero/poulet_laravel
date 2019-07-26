@@ -7,24 +7,24 @@
             <h2 class="text-center recetas">Indice</h2>
         </li>
         @forelse($links as $titulo => $link)
-        <li class="nav-item"><a class="nav-link text-center pink-text " href="{{$link}}">{{$titulo}}</a></li>
+        <li class="nav-item"><a class="nav-link text-center" href="{{$link}}">{{$titulo}}</a></li>
         @empty
         <p class="text-danger">No hay links cargados</p>
         @endforelse
         <hr class="mx-5">
         @guest
             <li class="nav-item">
-                <a class="nav-link text-center pink-text" href="{{route('login')}}">login</a>
+                <a class="nav-link text-center" href="{{route('login')}}">login</a>
             </li>
             @if (Route::has('register'))
                 <li class="nav-item">
-                    <a class="nav-link text-center pink-text" href="{{route('register')}}">Registracion</a>
+                    <a class="nav-link text-center" href="{{route('register')}}">Registracion</a>
                 </li>
             @endif
         @else
-            <li class="nav-item"><a href="{{route('home')}}" class="nav-link text-center pink-text">{{\Illuminate\Support\Facades\Auth::user()->name}}</a></li>
+            <li class="nav-item"><a href="{{route('home')}}" class="nav-link text-center">{{\Illuminate\Support\Facades\Auth::user()->name}}</a></li>
             <li class="nav-item">
-                <a class="nav-link text-center pink-text" href="{{ route('logout') }}"
+                <a class=" nav-link text-center" href="{{ route('logout') }}"
                    onclick="
                         event.preventDefault();
                         document.getElementById('logout-form').submit();">
