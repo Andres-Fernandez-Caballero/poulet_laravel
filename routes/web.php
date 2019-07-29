@@ -32,7 +32,7 @@ Route::post('contact','ContactoController@store')->name('contacto.store');
 
 /*** Rutas Panel ***/
 
-Route::get('/panel','PanelController@index')->name('panel.index');
+Route::get('/panel','PanelController@index')->name('panel.index')->middleware('auth.gotThePower');
 
 Route::get('/panel/Postres','PanelController@listadoPostres')->name('panel.postres');
 

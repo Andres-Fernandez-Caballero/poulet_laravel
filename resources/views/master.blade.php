@@ -44,6 +44,9 @@ $links = [
     </div>
 </div>
 
+
+<!-- font awesome -->
+<script src="https://kit.fontawesome.com/1b0aa112c5.js"></script>
 <!-- JQuery -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Bootstrap tooltips -->
@@ -54,11 +57,7 @@ $links = [
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.14/js/mdb.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
-<script>
-    $(document).ready(function () {
-        bsCustomFileInput.init()
-    })
-</script>
+<script type="text/javascript" src="{{asset('js_poulet/poulet_actions.js')}}"></script>
 </body>
 
 </html>

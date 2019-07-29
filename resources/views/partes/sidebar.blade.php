@@ -11,6 +11,11 @@
         @empty
         <p class="text-danger">No hay links cargados</p>
         @endforelse
+        @if(\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->isAdmin())
+        <li class="nav-item">
+            <a class="nav-link text-center" href="{{route('panel.index')}}">Panel</a>
+        </li>
+        @endif
         <hr class="mx-5">
         @guest
             <li class="nav-item">

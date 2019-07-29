@@ -147,11 +147,62 @@ li .recetas {
     color: #f48fb1;
 }
 
+.poulet-card-info{
+    width: 300px;
 
+}
 
+.poulet-card-info-body{
+    height: 390px;
+    overflow-y: auto ;
+}
 
+.card-footer{
+    background-color: white;
+}
 
+/******/
+.poulet-scroll::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.3);
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
 
+.poulet-scroll::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
 
+.poulet-scroll::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: lightpink;
+}
 
+/******/
+body::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.3);
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
 
+body::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+body::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: lightpink;
+}

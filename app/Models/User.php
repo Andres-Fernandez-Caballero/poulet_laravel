@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Image;
 
@@ -53,5 +54,27 @@ class User extends Authenticatable
             }
 
         return $url;
+    }
+
+    public function isAdmin(){
+        $validate = false;
+        if(Auth::check())
+        {
+            if(($this->getAttribute('rol') == 'admin')||($this->getAttribute('rol') == 'master')){
+                $validate = true;
+            }
+        }
+        return $validate;
+    }
+
+    public function isMaster(){
+        $validate = false;
+        if(Auth::check())
+        {
+            if(($this->getAttribute('rol') == 'master')){
+                $validate = true;
+            }
+        }
+        return $validate;
     }
 }
