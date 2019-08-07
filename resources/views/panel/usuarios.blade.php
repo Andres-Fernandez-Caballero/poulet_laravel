@@ -17,35 +17,33 @@
             <table class="table table-hover">
                 <thead>
                 <tr class="">
-                    <th>Titulo</th>
-                    <th>Categoria</th>
+                    <th>Usuario</th>
+                    <th>Mail</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($autores as $autor)
+                @forelse($usuarios as $usuario)
                     <tr>
-                        <td>{{$autor->nombre}}</td>
-                        <td>{{$autor->apellido}}</td>
+                        <td>{{$usuario->name}}</td>
+                        <td>{{$usuario->email}}</td>
                         <td class="">
-                            <a href="{{route('autor.show',$autor)}}" class="btn-sm btn-info">#</a>
-                            <a href="{{route('autor.edit',$autor->id_autor)}}" class="btn-sm btn-warning">#</a>
+                            <a href="{{route('users.show',$usuario)}}" class="btn-sm btn-info text-white"><i
+                                    class="far fa-eye"></i></a>
+                            <a href="{{route('users.edit',$usuario->id)}}"
+                               class="btn-sm text-white indigo accent-1"><i class="fas fa-pen-fancy"></i></a>
                             <a href="#modalConfirmDelete"
                                data-toggle="modal"
-                               data-form="{{route('autor.destroy',$autor->id_autor)}}"
-                               data-msj="Realmente desea eliminar al autor {{$autor->nombre}}"
-                               class="btn-sm btn-danger">#</a>
+                               data-form="{{route('users.destroy',$usuario->id)}}"
+                               data-msj="Realmente desea eliminar al usuario {{$usuario->name}}"
+                               class="btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td>empy</td>
-                        <td>empy</td>
-                        <td>
-                            <a href="#" class="btn-sm btn-grey lighten-1 disabled ">#</a>
-                            <a href="#" class="btn-sm btn- grey white-text disabled white-text">#</a>
-                            <a href="#" class="btn-sm btn- grey darken-1 white-text disabled">#</a>
-                        </td>
+                        <td>milanesa</td>
+                        <td>carnes</td>
+                        <td>acciones</td>
                     </tr>
                 @endforelse
                 </tbody>
@@ -53,12 +51,8 @@
         </article>
         <article class="m-4">
             <div class="my-4">
-                <a href="{{route('autor.create')}}" class="btn-lg btn-pink">Agregar Autor</a>
-            </div>
-            <div class="my-4">
                 @include('partes.boton_volver')
             </div>
-
         </article>
     </section>
 

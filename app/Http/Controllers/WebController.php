@@ -6,8 +6,10 @@ use App\Header;
 use App\Models\Receta;
 use App\User;
 use Doctrine\DBAL\Query\QueryException;
+use Faker\Provider\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use League\Flysystem\FileNotFoundException;
 
 class WebController extends Controller
 {
@@ -15,24 +17,37 @@ class WebController extends Controller
     {
         $header = ['fondo' => 'poulet-header', 'titulo' => 'Poulet Recetas'];
         //TODO: mostrar el texto de home por medio de un archivo o base de datos
+
+        $tIntro = 'ups parece q no encontramos la introduccion -_-' ;
+        try{
+
+            $file = fopen('text/intro.andres','r');
+            $tIntro = fgets($file);
+            fclose($file);
+        }catch (FileNotFoundException $fileNotFoundException){
+            abort(404);
+        }
         return view("web.index")
-            ->with('header', $header);
+            ->with('header', $header)
+            ->with('intro',$tIntro);
     }
 
-    public function recetas(Receta $receta)
+    public function recetas()
     {
-
         try {
-            $lista = $receta->all()
+            $lista = Receta::all()
                 ->where('categoria', '!=', 'Postres')
                 ->sortBy('categoria')
                 ->groupBy('categoria');
+
         } catch (\Exception $exception) {
             $error = $exception->getMessage();// TODO: solucionar el error no muestra el string de la exepcion
             $error = 'Error al conectar Base de Datos ';
 
             return view('web.page_error')->with('error', $error);
         }
+
+
 
 
         return view('web.recetas')

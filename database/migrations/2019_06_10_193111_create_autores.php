@@ -17,6 +17,7 @@ class CreateAutores extends Migration
             $table->bigIncrements('id_autor');
             $table->string('nombre');
             $table->string('apellido');
+            $table->string('imagen')->nullable();
             $table->longText('biografia');
 
             $table->timestamps();

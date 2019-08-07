@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ResetasFormRequest extends FormRequest
+class RecetaUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class ResetasFormRequest extends FormRequest
     {
         return [
             'titulo'=> 'required|string',
-            'imagen'=> 'required|file|mimes:jpeg,png,gif',
+            'imagen'=> 'file|mimes:jpeg,png,gif',
             'preparacion'=> 'required|string|max:200',
             'fk_autor'=> 'required|exists:autores,id_autor',
             'categoria'=> 'required|exists:recetas,categoria',
@@ -38,7 +38,6 @@ class ResetasFormRequest extends FormRequest
     {
         return [
             'titulo.required' => 'El campo tipo titulo es obligatorio',
-            'imagen.required' => 'Debe ingresar una imagen',
             'imagen.mimes' => 'Timpo de imagen no admitido',
             'fk_autor.exists' => 'Seleccione una opcion en el campo Autor',
             'categoria.exists' => 'Seleccione una opcion en el campo Categoria',
@@ -47,4 +46,5 @@ class ResetasFormRequest extends FormRequest
             'preparacion.required' => 'Debe ingresar la preparacion'
         ];
     }
+
 }

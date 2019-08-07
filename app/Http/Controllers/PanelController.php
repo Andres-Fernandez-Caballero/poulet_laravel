@@ -8,6 +8,7 @@ use App\Models\Receta;
 use App\User;
 use Doctrine\DBAL\Driver\Mysqli\MysqliException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class PanelController extends Controller
@@ -20,21 +21,29 @@ class PanelController extends Controller
         $header = ['fondo'=>'poulet-header','titulo'=>'Panel Master Cheft'];
 
         try{
+        //cargo todos los usuarios de la base de datos en una variable usuarios
         $usuarios = User::all();
+        //cargo todas las consultas de la base de datos en una variable consultas
         $consultas = Consulta::all();
-        $autores = Autor::all();
+        //uno la tabla autores y recetas y cuento todas las recetas que posee cada autor
+        $autores = DB::table('autores')
+            ->join('recetas' , 'autores.id_autor', '=', 'recetas.fk_autor')
+            ->select(DB::raw('nombre , count(id_recetas) as cant_recetas'))
+            ->groupBy('autores.id_autor')
+            ->get();
+        //cargo todas las recetas de la base de datos en una variable recetas
         $recetas = Receta::all()
             ->sortBy('categoria')
             ->groupBy('categoria');
+
         }catch (MysqliException $mysqliException){
             //TODO: manipular exepcion
-            return redirect()->route('web.index');
+            return redirect()->route('web.index')->withErrors('Error de conexion mysql');
         }
         $lista_autores = [];
         foreach ($autores as $autor){
-          $lista_autores[$autor->nombre] = 1;
+          $lista_autores[$autor->nombre] = $autor->cant_recetas;
         }
-
 
         //creo un array asociativo con las categorias y la cantidad de recetas por item
         $lista_recetas = [];
@@ -65,48 +74,4 @@ class PanelController extends Controller
             ->with('auth_user',$auth_user)
             ->with('datos',$datos);
     }
-
-    public function listadoPostres(){
-
-        $header = ['fondo'=>'poulet-header','titulo'=>'Panel Master Cheft'];
-
-        try{
-            $listadoPostres = Receta::all()->where('categoria','=','Postres');
-        }catch (\Exception $exception){
-            $error = $exception->getMessage();
-            return view('web.page_error')->with('error',$error);
-        }
-
-        return view('panel.listado_postres')
-            ->with('header',$header)
-            ->with('listaPostres',$listadoPostres);
-
-    }
-
-    public function listarAutores(){
-        $header = ['fondo'=>'poulet-header','titulo'=>'Panel Master Cheft'];
-
-        try{
-            $listadoAutores = Autor::all();
-        }catch (\Exception $ex){
-            //TODO implementar exepcion
-        }
-        return view('panel.autores')
-            ->with('header',$header)
-            ->with('listaAutores',$listadoAutores);
-    }
-
-    public function agregarReceta(){
-        $header = ['fondo'=>'poulet-header','titulo'=>'Agregar Receta'];
-        $autores = Autor::all();
-        return view('panel.form_agregar')
-            ->with('header',$header)
-            ->with('categorias',Receta::$LISTA_CATEGORIAS)
-            ->with('dificultades',Receta::$LISTA_DIFICULTADES)
-            ->with('tiempos',Receta::$LISTA_TIEMPOS)
-            ->with('autores',$autores);
-
-
-    }
-
 }

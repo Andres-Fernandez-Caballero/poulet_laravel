@@ -17,7 +17,7 @@ class CreateRecetas extends Migration
             $table->bigIncrements('id_recetas');
             $table->string('titulo');
             $table->string('categoria');
-            $table->string('imagen');
+            $table->string('imagen')->nullable();
             $table->longText('preparacion');
 
             $table->timestamps();

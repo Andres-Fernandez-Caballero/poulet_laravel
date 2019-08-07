@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Doctrine\DBAL\Driver\Mysqli\MysqliException;
 use Faker\Provider\File;
 use Faker\Provider\Image;
 use Illuminate\Http\Request;
@@ -21,7 +22,17 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $header = ['fondo' => 'poulet-header', 'titulo' => 'Formulario crear Autor'];
+        try {
+            $usuarios = User::all();
+        } catch (MysqliException $mysqliException) {
+            //TODO: manejar exepcion
+            return redirect()->route('web.index');
+        }
+
+        return view('panel.usuarios')
+            ->with('header', $header)
+            ->with('usuarios', $usuarios);
     }
 
     /**
@@ -31,7 +42,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        //uso la plantilla laravel
     }
 
     /**
@@ -42,7 +53,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // uso el provisto por laravel
     }
 
     /**
@@ -53,7 +64,15 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        try{
+            $usuario = User::find($id);
+
+        }catch (MysqliException $mysqliException){
+            //TODO: manejar exepcion
+            redirect()->route('web.index')->withErrors('Error de mysql');
+        }
+
+        return 'usuario';
     }
 
     /**
@@ -64,9 +83,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $usuario = User::find($id);
-
-        return null;
+        // no es necesario
     }
 
     /**
@@ -85,7 +102,8 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illumina
+     * te\Http\Response
      */
     public function destroy($id)
     {
@@ -93,13 +111,15 @@ class UserController extends Controller
             $usuario = User::find($id);
         } catch (\Exception $exception) {
             //TODO: agregar manejo de error a esto
+            return redirect()->route('web.index');
         }
 
         if ($usuario->delete()) {
+            Storage::disk('local')->deleteDirectory('user/' . md5($usuario->email));
             return redirect()->route('web.index');
         } else
-            return 'error de eliminacion';
-
+            return redirect()->route('panel.index')
+                ->withErrors('error al eliminar usuario');
     }
 
     public function updatePass(Request $request, $id)
@@ -126,21 +146,27 @@ class UserController extends Controller
         $usuario->fill([
             'password' => Hash::make($request->get('pass_nuevo'))
         ])->save();
-        return redirect()->back()->with("success", "Your current password does not matches with the password you provided. Please try again.");
+        return redirect()->back()
+            ->with("success", "Your current password does not matches with the password you provided. Please try again.");
     }
 
     public function updateImg(Request $request, $id)
     {
         $user = User::find($id);
-        $nombreCarpeta = md5($user->email);
+        $nombreCarpeta = 'users/' . md5($user->email);
         $avatar = $user->img;
 
-        $request->file('img_nueva')->store($nombreCarpeta);
+        //si la request tiene una imagen la almaceno
+        if ($request->hasFile('img_nueva')) {
+            $request->file('img_nueva')->store($nombreCarpeta);
 
-        if(Storage::disk('local')->exists($avatar)){
-            Storage::disk('local')->delete($avatar);
+            // leo el avatar del usuario si existe lo elimino
+            if (Storage::disk('local')->exists($avatar)) {
+                Storage::disk('local')->delete($avatar);
+            }
         }
 
+        //almaceno el nuevo avatar
         $avatar = Storage::files($nombreCarpeta)[0];
 
         $user->fill([
@@ -156,11 +182,12 @@ class UserController extends Controller
 
         $user = User::find($id);
 
-        if(!strcmp($nuevo_nombre,"")==0){
+        if (!strcmp($nuevo_nombre, "") == 0) {
             $user->fill([
-                'name'=>$nuevo_nombre
+                'name' => $nuevo_nombre
             ])->save();
         }
+
         return redirect()->home();
     }
 }

@@ -4,8 +4,6 @@ $links = [
     "Home" => route("web.index"),
     "Recetas" => route("web.recetas"),
     "Postres" => route("web.postres"),
-    "Contacto" => route("web.contacto")
-    /*,"Panel" => route('panel.index')*/
 ];
 ?>
 
@@ -56,8 +54,9 @@ $links = [
         src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.14/js/mdb.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
-<script type="text/javascript" src="{{asset('js_poulet/poulet_actions.js')}}"></script>
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+<script type="text/javascript" src="{{asset('js/js_poulet/poulet_actions.js')}}"></script>
 </body>
 
 </html>

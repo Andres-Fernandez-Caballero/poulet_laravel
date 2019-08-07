@@ -7,12 +7,6 @@
 @endif
 
 @section('content')
-    <div>
-        @include('partes.header',$header
-    = [ 'fondo'=>'poulet-header',
-        'titulo'=>'Panel de usuario'
-      ])
-    </div>
     @if(session('error'))
         <div class="m-4 alert alert-danger">
             {{session('error')}}

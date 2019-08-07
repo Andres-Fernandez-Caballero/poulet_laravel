@@ -2,6 +2,7 @@
 
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
+use App\Models\Autor;
 
 class autoresSeeder extends Seeder
 {
@@ -15,12 +16,13 @@ class autoresSeeder extends Seeder
         $faker = Faker::create();
 
         for($i = 1; $i <= 10; $i++):
-            DB::table("autores")->insert([
-                "id_autor"       => $i,
-                "nombre"   => $faker->name,
-                "apellido" => $faker->lastName,
-                "biografia"    => $faker->text
-            ]);
+
+            $autor = new Autor([
+                'nombre' => $faker->name,
+                'apellido' => $faker->lastName,
+                'biografia' => $faker->text,
+             ]);
+            $autor->save();
         endfor;
     }
 }

@@ -1,7 +1,18 @@
 @extends('master')
 
 @section('content')
-    @include('partes.header',$header = ['fondo'=>'poulet-header','titulo'=>'Contacto'])
+    @if($errors->any())
+        @foreach($errors->all() as $error)
+            <div class="alert alert-danger" role="alert">
+                <strong>{{$error}}</strong>
+            </div>
+        @endforeach
+    @endif
+    @if(isset($ok))
+        <div class="alert alert-success" role="alert">
+            <p><strong>success</strong><span>{{$ok}}</span>.</p>
+        </div>
+    @endif
     <section class="m-4">
         <form method="post" action="{{route('contacto.store')}}">
             @csrf
@@ -19,22 +30,22 @@
 
                 @foreach($categorias as $categoria )
                     <div class="mx-4 custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" name="{{$categoria.'-check'}}"
-                               id="{{$categoria.'-check'}}">
+                        <input class="custom-control-input" type="checkbox" name="boxs[]"
+                               id="{{$categoria.'-check'}}" value="{{$categoria}}">
 
                         <label class="custom-control-label" for="{{$categoria.'-check'}}">
                             {{$categoria}}
                         </label>
                     </div>
                 @endforeach
-                    <div class="mx-4 custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" name="remember"
-                               id="otros" {{ old('remember') ? 'checked' : '' }}>
+                <div class="mx-4 custom-control custom-checkbox">
+                    <input class="custom-control-input" type="checkbox" name="boxs[]"
+                           id="otros" {{ old('otros')}} value="otros">
 
-                        <label class="custom-control-label" for="otros">
-                            Otros
-                        </label>
-                    </div>
+                    <label class="custom-control-label" for="otros">
+                        Otros
+                    </label>
+                </div>
             </div>
 
             <div class="my-3 form-group">

@@ -24,24 +24,20 @@ Route::get('/recetas','WebController@recetas')->name('web.recetas');
 
 Route::get('/postres','WebController@postres')->name('web.postres');
 
-Route::get('/preparacion/{id}','WebController@preparacion')->name('web.preparacion');
-
 Route::get('/contacto','WebController@contacto')->name('web.contacto');
-
-Route::post('contact','ContactoController@store')->name('contacto.store');
 
 /*** Rutas Panel ***/
 
 Route::get('/panel','PanelController@index')->name('panel.index')->middleware('auth.gotThePower');
 
-Route::get('/panel/Postres','PanelController@listadoPostres')->name('panel.postres');
-
-Route::get('/panel/agregar_receta','PanelController@agregarReceta')->name('panel.agregarReceta');
-
-Route::get('/panel/autores','PanelController@listarAutores')->name('panel.autores');
-
 /*** Rutas controlador Recetas ***/
 Route::resource('/receta','RecetasController');
+
+/*** Rutas controlador Autor ***/
+Route::resource('/autor','AutoresController');
+
+/*** Rutas controlador Consulta/Contacto ***/
+Route::resource('/contacto','ConsultaController');
 
 /*** Rutas controlador Usuarios ***/
 Route::put('user/{id}','UserController@updateName')->name('user.update.name');
