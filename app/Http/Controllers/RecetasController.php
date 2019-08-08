@@ -94,16 +94,16 @@ class RecetasController extends Controller
         //tengo q salarlo 2 veces primero para crear un id de la receta ... alo esta mal lo se...
         $receta->save();
         if ($request->hasFile('imagen')){
-            $carpeta = 'recetas/' . md5($receta->id_recetas);
+            $carpeta = $receta->getCarpetaImg();
             $img = $request->file('imagen')->store($carpeta);
-            $rutaImg = Storage::files($carpeta)[0];
+            $rutaImg = $this->imagenDesdeCarpeta($carpeta);
             $receta->imagen = $rutaImg;
         }
 
         if ($receta->save()) {
-            return redirect()->route('receta.index')->with('success', 'Receta creada con exito');
+            return redirect()->route('receta.index')->with('success','Receta creada con exito');
         } else {
-            return redirect()->route('panel.agregarReceta');
+            return redirect()->route('receta.index')->with('error','La receta no se pudo crear');
         }
     }
 
@@ -121,6 +121,7 @@ class RecetasController extends Controller
             $recetum = Receta::find($id);
         } catch (MysqliException $mysqliException) {
             //TODO: manejar exepcion mysql
+            return redirect()->route('web.index')->with('error','Error de mysq');
         }
         return view('web.preparacion')
             ->with('header', $header)
@@ -142,8 +143,7 @@ class RecetasController extends Controller
             $receta = Receta::find($id);
             $autor_receta = Autor::find($receta->fk_autor)->nombre;
         } catch (MysqliException $mysqliException) {
-            return redirect()->route('receta.index')
-                ->withErrors('no se pudo acceder a la base de datos');
+            return redirect()->route('web.index')->with('error','Error de mysq');
         }
         $datos = [
             'autores' => $autores,
@@ -172,28 +172,27 @@ class RecetasController extends Controller
             $receta = Receta::find($id);
         }catch (MysqliException $mysqliException){
             //TODO: manejar exepcion
-            return redirect()->route('web.index');
+            return redirect()->route('web.index')->with('error','Error de mysq');
         }
-
+        $imagen = $receta->imagen;
         $nuevos_valores = $request->all();
         //si tengo una imagen el request file (imagen) existe sino no...
-        if ($request->file('imagen')) {
+        if ($request->hasFile('imagen')) {
             //metodos para actualizar imagen
-            $imagen = $receta->imagen;
-            $carpeta = 'recetas/' . md5($receta->id_recetas);
+            $carpeta = $receta->getCarpetaImg();
+            $request->file('imagen')->store($carpeta);
 
             if (Storage::disk('local')->exists($imagen)) {
                 Storage::disk('local')->delete($imagen);
             }
-            $request->file('imagen')->store($carpeta);
-            $imagen = Storage::files($carpeta[0]);
+            $imagen = $this->imagenDesdeCarpeta($carpeta);
             $nuevos_valores['imagen'] = $imagen;
         }
         //no se modificio la imagen guardo los demas datos
         if($receta->update($nuevos_valores)){
-            return redirect()->route('panel.index')->with('success','Datos actualizados');
+            return redirect()->route('receta.index')->with('success','Receta actualizada con exito');
         }else{
-            return redirect()->back()->withErrors('Datos no actualizados')->withInput();
+            return redirect()->back()->with('error','Error al actualizar receta');
         }
     }
 

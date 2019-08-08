@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Header;
+use App\Models\Autor;
 use App\Models\Receta;
 use App\User;
+use Doctrine\DBAL\Driver\Mysqli\MysqliException;
 use Doctrine\DBAL\Query\QueryException;
 use Faker\Provider\File;
 use Illuminate\Support\Facades\DB;
@@ -18,18 +20,16 @@ class WebController extends Controller
         $header = ['fondo' => 'poulet-header', 'titulo' => 'Poulet Recetas'];
         //TODO: mostrar el texto de home por medio de un archivo o base de datos
 
-        $tIntro = 'ups parece q no encontramos la introduccion -_-' ;
-        try{
+        $tIntro = 'ups parece q no encontramos la introduccion -_-';
+        try {
+            $texto = $this->leerArchivo('text/intro.andres' );
 
-            $file = fopen('text/intro.andres','r');
-            $tIntro = fgets($file);
-            fclose($file);
-        }catch (FileNotFoundException $fileNotFoundException){
+        } catch (FileNotFoundException $fileNotFoundException) {
             abort(404);
         }
         return view("web.index")
             ->with('header', $header)
-            ->with('intro',$tIntro);
+            ->with('intro', $texto);
     }
 
     public function recetas()
@@ -48,8 +48,6 @@ class WebController extends Controller
         }
 
 
-
-
         return view('web.recetas')
             ->with('lista', $lista);
     }
@@ -60,6 +58,7 @@ class WebController extends Controller
         try {
             $lista = $receta->all()
                 ->where('categoria', '=', 'Postres');
+            $texto = $this->leerArchivo('text/intro_postre.andres');
         } catch (\Exception $exception) {
             //TODO: solucionar el problema de que no se puede mostrar el string de la exepcion
             $error = 'Error al conectar con base de datos'; //provisorio
@@ -69,6 +68,7 @@ class WebController extends Controller
 
         return view('web.postres')
             ->with('lista', $lista)
+            ->with('texto',$texto)
             ->with('header', $header);
     }
 
@@ -89,10 +89,16 @@ class WebController extends Controller
             ->with('receta', $receta);
     }
 
-    public function contacto()
+    public function autores()
     {
-        $categorias = Receta::$LISTA_CATEGORIAS;
-        return \view('web.contacto')->with('categorias',$categorias);
+        try{
+            $autores = Autor::all();
+        }catch (MysqliException $mysqliException){
+            //TODO: manejar exepcion
+            return redirect()->route('web.index')->with('error','Error de mysql');
+        }
+
+        return \view('web.autores')->with('autores',$autores);
     }
 
 

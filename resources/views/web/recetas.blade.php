@@ -44,4 +44,7 @@
             @php $active = ''; $show = ''; @endphp
         @endforeach
     </section>
+    <section class="my-2 d-flex justify-content-end">
+        @include('partes.boton_volver')
+    </section>
 @endsection

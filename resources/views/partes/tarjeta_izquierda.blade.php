@@ -8,11 +8,14 @@
     <div class="col-lg-8">
         <h3 class="font-weight-bold mb-3"><strong>{{$receta->titulo}}</strong></h3>
         <div>
-            <p><i class="fa fa-clock-o" aria-hidden="true"></i> {{$receta->tiempo_preparacion}} min</p>
-            <p><i class="fa fa-heart" aria-hidden="true"></i> {{$receta->dificultad}}</p>
+            <p><i class="pink-text fa fa-clock-o" aria-hidden="true"></i> {{$receta->tiempo_preparacion}} min</p>
+            <p><i class="pink-text fa fa-heart" aria-hidden="true"></i> {{$receta->dificultad}}</p>
             <p class="poulet-holder text-truncate">{{$receta->preparacion}}</p>
         </div>
-        <!-- link a la preparacion -->
-        <a class=" btn btn-pink btn-md" href="{{route("receta.show",$receta->id_recetas)}}">Preparar</a>
+        <div class="d-flex justify-content-end">
+            <!-- link a la preparacion -->
+            <a class=" btn btn-pink btn-md" href="{{route("receta.show",$receta->id_recetas)}}">Preparar</a>
+        </div>
+
     </div>
 </article>

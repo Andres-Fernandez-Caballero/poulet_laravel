@@ -1,26 +1,27 @@
 @extends('master')
 
 @section('content')
-    <section>
+    @include('partes.header')
+    <section class="d-flex justify-content-center">
         <article class="mx-auto my-3 card" style="width: 400px; height: 400px; ">
             <div class="card-header color-poulet cursiva-poulet poulet-font-125">{{$autor->nombre}}</div>
             <div class="card-body p-0">
-                <div class="d-flex ">
-                    <img class="justify-content-center" src="{{$autor->getAutorImgAttribute()}}" width="200px" alt="">
+                <div class="mb-4 d-flex ">
+                    <img class="d-block mx-auto" src="{{$autor->getAutorImgAttribute()}}" alt="">
                 </div>
-                <p>{{$autor->biografia}}</p>
+                <p class="p-4">{{$autor->biografia}}</p>
             </div>
         </article>
-        <article>
-            <div class="m-4 card">
-                <ul>
-                    @forelse($receta_autor as $receta)
-                        <li><a href="#">{{$receta->titulo}}</a></li>
-                    @empty
-                        <li>No tiene recetas</li>
-                    @endforelse
-                </ul>
+        <article class="mx-auto my-3 card poulet-card-info">
+            <div class="card-header color-poulet cursiva-poulet poulet-font-125">Recetas</div>
+            <div class="card-body">
+                @forelse($receta_autor as $receta)
+                    <p><a href="{{route('receta.show',$receta->id_recetas)}}" class="pink-text">{{$receta->titulo}}</a></p>
+                @empty
+                    <p>No tiene recetas</p>
+                @endforelse
             </div>
+
         </article>
     </section>
     <article>

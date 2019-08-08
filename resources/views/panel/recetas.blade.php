@@ -1,17 +1,11 @@
 @extends('master')
 
 @section('content')
-    @if($errors->any())
-        <div class="m-4 alert alert-danger" role="alert">
-            <p><strong>Error!!! </strong><span>Mensaje de error</span> <a href="{{route('web.index')}}"
-                                                                          class="pink-text">Volver al inicio.</a></p>
-        </div>
-    @endif
-    @if(isset($success))
-        <div class="m-4 alert alert-success" role="alert">
-            <p><strong>exito!!! </strong><span>Mensaje de Exito</span>.</p>
-        </div>
-    @endif
+    @include('partes.header')
+    @include('partes.listar_errors')
+    @include('partes.listar_mis_errores')
+    @include('partes.listar_exito')
+
     <section class="d-flex justify-content-center align-middle">
         <article class="m-4 poulet-card-list poulet-scroll">
             <table class="table table-hover">
@@ -28,8 +22,8 @@
                         <td>{{$receta->titulo}}</td>
                         <td>{{$receta->categoria}}</td>
                         <td class="">
-                            <a href="{{route('receta.show',$receta)}}" class="btn-sm btn-info text-white"><i class="far fa-eye"></i></a>
-                            <a href="{{route('receta.edit',$receta->id_recetas)}}" class="btn-sm text-white indigo accent-1"><i class="fas fa-pen-fancy"></i></a>
+                            <a href="{{route('receta.show',$receta)}}" class="btn-sm btn-info"><i class="far fa-eye"></i></a>
+                            <a href="{{route('receta.edit',$receta->id_recetas)}}" class="btn-sm  indigo accent-1"><i class="text-white fas fa-pen-fancy"></i></a>
                             <a href="#modalConfirmDelete"
                                data-toggle="modal"
                                data-form="{{route('receta.destroy',$receta->id_recetas)}}"
@@ -41,7 +35,7 @@
                     <tr>
                         <td>Vacio</td>
                         <td>Vacio</td>
-                        <td>Sin acciones</td>
+                        @include('partes.acciobes_disable')
                     </tr>
                 @endforelse
                 </tbody>

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <?php
 $links = [
-    "Home" => route("web.index"),
-    "Recetas" => route("web.recetas"),
-    "Postres" => route("web.postres"),
+    'Home' => route('web.index'),
+    'Recetas' => route('web.recetas'),
+    'Postres' => route('web.postres'),
+    'Autores' => route('web.autores')
 ];
 ?>
 

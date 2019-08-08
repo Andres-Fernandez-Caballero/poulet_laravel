@@ -1,18 +1,10 @@
 @extends('master')
 
 @section('content')
-    @if($errors->any())
-        @foreach($errors->all() as $error)
-            <div class="alert alert-danger" role="alert">
-                <strong>{{$error}}</strong>
-            </div>
-        @endforeach
-    @endif
-    @if(isset($ok))
-        <div class="alert alert-success" role="alert">
-            <p><strong>success</strong><span>{{$ok}}</span>.</p>
-        </div>
-    @endif
+    @include('partes.header')
+    @include('partes.listar_errors')
+    @include('partes.listar_exito')
+    @include('partes.listar_mis_errores')
     <section class="m-4">
         <form method="post" action="{{route('contacto.store')}}">
             @csrf

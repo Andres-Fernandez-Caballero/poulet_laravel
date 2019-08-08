@@ -12,7 +12,9 @@ use Intervention\Image\Image;
 class User extends Authenticatable
 {
     use Notifiable;
+    private const STORE_AUTORES_PATH = 'users/';
     private const IMG_DEFAULT = 'quemada.jpg';
+    public const ROLES = ['master','admin','user'];
     /**
      * The attributes that are mass assignable.
      *
@@ -76,5 +78,14 @@ class User extends Authenticatable
             }
         }
         return $validate;
+    }
+/*** no implementado*/
+    public function getCarpetaImg(){
+        $carpeta = null;
+        if (isset($this->attributes['id'])){
+            $nombreUnico = md5($this->attributes['id']);
+            $carpeta = self::STORE_AUTORES_PATH . $nombreUnico;
+        }
+        return $carpeta;
     }
 }

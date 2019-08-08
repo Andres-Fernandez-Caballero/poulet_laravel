@@ -6,13 +6,7 @@
             <p><strong>Operacion exitosa! </strong><span>{{$success}}</span>.</p>
         </div>
     @endif
-    @if($errors->any())
-        @foreach($errors as $error)
-            <div class="alert alert-success" role="alert">
-                <p><strong>Error! </strong><span>{{$error}}</span>.</p>
-            </div>
-        @endforeach
-    @endif
+   @include('partes.listar_errors')
     <!-- lista de recetas separadas en pequeñas tablas -->
     <section class="justify-content-around row  d-flex justify-content-center">
         <article class="poulet-card-info m-3  mb-4 card">
@@ -34,7 +28,7 @@
                     @empty
                         <tr>
                             <td>Vacio</td>
-                            <td>?</td>
+                            <td class="text-center pink-text">?</td>
                         </tr>
                     @endforelse
                     </tbody>
@@ -64,7 +58,7 @@
                     @empty
                         <tr>
                             <td>Vacio</td>
-                            <td>?</td>
+                            <td class="text-center pink-text">?</td>
                         </tr>
                     @endforelse
                     </tbody>
@@ -94,7 +88,7 @@
                         @empty
                             <tr>
                                 <td>Vacio</td>
-                                <td>?</td>
+                                <td class="text-center pink-text">?</td>
                             </tr>
                         @endforelse
                         </tbody>
@@ -111,20 +105,20 @@
                 <table class="table table-striped table-inverse table-responsive">
                     <thead class="thead-inverse">
                     <tr>
-                        <th>N consulta</th>
-                        <th>Estado</th>
+                        <th><strong>Nº consulta</strong></th>
+                        <th><strong>Estado</strong></th>
                     </tr>
                     </thead>
                     <tbody>
                     @forelse($datos['lista_consultas'] as $consulta => $estado)
                         <tr class="bg-white">
                             <td>{{$consulta}}</td>
-                            <td class="text-center">{{$estado}}</td>
+                            <td class="text-center {{($estado=='Revisada')? 'text-success' : 'pink-text'}}">{{$estado}}</td>
                         </tr>
                     @empty
                         <tr class="bg-white">
                             <td>Vacio</td>
-                            <td class="text-center">?</td>
+                            <td class="text-center pink-text">?</td>
                         </tr>
                     @endforelse
                     </tbody>

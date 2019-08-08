@@ -14,9 +14,9 @@ class AddForeignKeyRecetas extends Migration
     public function up()
     {
         Schema::table('recetas', function (Blueprint $table) {
-            $table->bigInteger('fk_autor')->unsigned();
+            $table->bigInteger('fk_autor')->unsigned()->nullable();
             $table->foreign('fk_autor')
-                ->references('id_autor')->on('autores');
+                ->references('id_autor')->on('autores')->onDelete('set null');
         });
     }
 

@@ -1,13 +1,7 @@
 @extends('master')
 
 @section('content')
-    @if($errors->any())
-        @foreach($errors->all() as $error)
-            <div class="m-4 alert alert-danger" role="alert">
-                <strong>{{$error}}</strong>
-            </div>
-        @endforeach
-    @endif
+    @include('partes.listar_errors')
     <!-- si tengo un objeto receta entronces uso la accion update sino uso la opcion store -->
     <form
         action="{{isset($datos['receta'])? route('receta.update',$datos['receta']->id_recetas)  : route('receta.store')}}"

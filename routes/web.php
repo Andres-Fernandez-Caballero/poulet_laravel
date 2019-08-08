@@ -24,7 +24,7 @@ Route::get('/recetas','WebController@recetas')->name('web.recetas');
 
 Route::get('/postres','WebController@postres')->name('web.postres');
 
-Route::get('/contacto','WebController@contacto')->name('web.contacto');
+Route::get('/Autores','WebController@autores')->name('web.autores');
 
 /*** Rutas Panel ***/
 

@@ -21,6 +21,13 @@ class Controller extends BaseController
         return $imagen_path;
     }
 
+    protected function leerArchivo($ruta,$mode = 'r'){
+        $file = fopen($ruta,$mode);
+        $tIntro = fgets($file);
+        fclose($file);
+        return $tIntro;
+    }
+
     protected function imagenDesdeCarpeta($carpeta){
         return Storage::files($carpeta)[0];
     }

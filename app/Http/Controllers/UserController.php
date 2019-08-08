@@ -22,7 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $header = ['fondo' => 'poulet-header', 'titulo' => 'Formulario crear Autor'];
+        $header = ['fondo' => 'poulet-header', 'titulo' => 'Lista Usuarios'];
         try {
             $usuarios = User::all();
         } catch (MysqliException $mysqliException) {
@@ -30,8 +30,11 @@ class UserController extends Controller
             return redirect()->route('web.index');
         }
 
+        $roles = User::ROLES;
+
         return view('panel.usuarios')
             ->with('header', $header)
+            ->with('roles',$roles)
             ->with('usuarios', $usuarios);
     }
 
@@ -69,10 +72,11 @@ class UserController extends Controller
 
         }catch (MysqliException $mysqliException){
             //TODO: manejar exepcion
-            redirect()->route('web.index')->withErrors('Error de mysql');
+            return redirect()->route('web.index')->withErrors('Error de mysql');
         }
 
-        return 'usuario';
+        return view('panel.usuario_detail')
+            ->with('usuario',$usuario);
     }
 
     /**
@@ -95,7 +99,21 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            $user = User::find($id);
+        }catch (MysqliException $mysqliException){
+            //TODO:manejar exepcion
+            return redirect()->route('web.index');
+        }
+
+        if($user->update([
+                'rol'=>$request['rol'],
+            ])){
+            return redirect()->route('users.index')->with('success','Rol actualizado');
+        }else{
+            return redirect()->route('users.index')->with('error','rol no actualizado');
+        }
+
     }
 
     /**
@@ -116,10 +134,10 @@ class UserController extends Controller
 
         if ($usuario->delete()) {
             Storage::disk('local')->deleteDirectory('user/' . md5($usuario->email));
-            return redirect()->route('web.index');
+            return redirect()->route('web.index')->with('success','Usuario Eliminado');
         } else
             return redirect()->route('panel.index')
-                ->withErrors('error al eliminar usuario');
+                ->with('error','error al eliminar usuario');
     }
 
     public function updatePass(Request $request, $id)
@@ -147,7 +165,7 @@ class UserController extends Controller
             'password' => Hash::make($request->get('pass_nuevo'))
         ])->save();
         return redirect()->back()
-            ->with("success", "Your current password does not matches with the password you provided. Please try again.");
+            ->with("success", "password actualizado");
     }
 
     public function updateImg(Request $request, $id)
@@ -173,7 +191,7 @@ class UserController extends Controller
             'img' => $avatar
         ])->save();
 
-        return redirect()->home();
+        return redirect()->home()->with('success','imagen de perfil actualizada');
     }
 
     public function updateName(Request $request, $id)
@@ -188,6 +206,8 @@ class UserController extends Controller
             ])->save();
         }
 
-        return redirect()->home();
+        return redirect()->home()->with('success','nombre cambiado');
     }
+
+
 }

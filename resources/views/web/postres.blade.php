@@ -1,12 +1,10 @@
 @extends('master')
 
 @section('content')
+    @include('partes.header')
     <section>
-        <!-- TODO: agregar metodo para que el contenido del parrafo sea probeido por el controlador -->
     <p class="text-center w-responsive mx-auto mb-5">
-        Despues de preparar y cocinar sabrososs platos, no viene mal bajar
-        la comida con unos postres, En esta seccion les enseñaremos como hacer todo tipo de tortas, pasteles, helados y
-        mas .
+        {{$texto}}
     </p>
     </section>
     <hr class="mt-5 mb-0">

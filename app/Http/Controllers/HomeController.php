@@ -26,6 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home')->with('auth_user',Auth::user());
+        $header = ['fondo' => 'poulet-header', 'titulo' => 'Panel De Usuario'];
+        return view('home')
+            ->with('header',$header)
+            ->with('auth_user',Auth::user());
     }
 }

@@ -7,16 +7,11 @@
 @endif
 
 @section('content')
-    @if(session('error'))
-        <div class="m-4 alert alert-danger">
-            {{session('error')}}
-        </div>
-    @endif
-    @if(session('success'))
-        <div class="m-4 alert alert-success">
-            {{session('success')}}
-        </div>
-    @endif
+    @include('partes.header')
+    @include('partes.listar_errors')
+    @include('partes.listar_mis_errores')
+    @include('partes.listar_exito')
+
     <section class="m-4 card">
         <h2 class="color-poulet cursiva-poulet card-header">Detalles</h2>
         <div class="card-body row">
@@ -39,7 +34,12 @@
                     <a class="dropdown-item" href="#modalCambiarPass" data-toggle="modal">Cambiar Contraseña</a>
                     <a class="dropdown-item"  data-toggle="modal" href="#modalCart">Cambiar Imagen de Perfil</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item text-danger cursiva-poulet" data-toggle="modal" href="#modalConfirmDelete">Eliminar Cuenta</a>
+                    <a href="#modalConfirmDelete" class="dropdown-item text-danger cursiva-poulet"
+                        data-toggle="modal"
+                        data-form="{{route('users.destroy',$auth_user->id)}}"
+                        data-msj="Esta seguro que desea eliminar esta cuenta">
+                        Eliminar Cuenta
+                    </a>
                 </div>
                 <!-- Basic dropdown -->
             </div>
@@ -111,35 +111,13 @@
     </div>
 
     <!--Eliminar cuenta Modal-->
-    <div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-sm modal-notify" role="document">
-            <div class="modal-content text-center">
-                <div class="modal-header d-flex justify-content-center red accent-2">
-                    <h3 class="heading">Estas seguro?</h3>
-                </div>
-                <div class="modal-body">
-                    <i class="poulet-cross-icon fas fa-times fa animated rotateIn"></i>
-                    <p>Si eliminas esta cuenta perderas todos los privilegios de administrardor</p>
-                </div>
-                <div class="modal-footer flex-center">
-                    <form action="{{route('users.destroy',\Illuminate\Support\Facades\Auth::user()->id)}}" method="post">
-                        @method('DELETE')
-                        @csrf
-                        <button type="submit" class="btn btn-outline-danger">Si</button>
-                        <button class="btn btn-outline-info" data-dismiss="modal">No</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    @include('partes.modal_destroy')
     <!-- modal cambiar nombre -->
     <div class="modal fade right" id="modalCambiarNombre" tabindex="-1" role="dialog" aria-labelledby="myModalLabelNombre" aria-hidden="true">
         <div class="modal-dialog modal-sm modal-right" role="document">
             <div class="modal-content">
                 <div class="modal-header pink accent-1">
-                    <h3 class="modal-title white-text text-center" id="myModalLabelNombre">Cambiar Contraseña</h3>
+                    <h3 class="modal-title white-text text-center" id="myModalLabelNombre">Cambiar Nombre</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>

@@ -27,7 +27,8 @@ class PanelController extends Controller
         $consultas = Consulta::all();
         //uno la tabla autores y recetas y cuento todas las recetas que posee cada autor
         $autores = DB::table('autores')
-            ->join('recetas' , 'autores.id_autor', '=', 'recetas.fk_autor')
+            //AL fin le encontre el uso al inner join
+            ->leftJoin('recetas' , 'autores.id_autor', '=', 'recetas.fk_autor')
             ->select(DB::raw('nombre , count(id_recetas) as cant_recetas'))
             ->groupBy('autores.id_autor')
             ->get();

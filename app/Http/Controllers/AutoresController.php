@@ -22,7 +22,8 @@ class AutoresController extends Controller
         $header = ['fondo' => 'poulet-header', 'titulo' => 'Listado de Autores'];
 
         try {
-            $autores = Autor::all()->sortBy('nombre');
+            $autores = Autor::all()
+                ->sortBy('create_at',SORT_REGULAR,true);
         } catch (MysqliException $mysqliException) {
             //TODO: manejar exepcion mysql
             return redirect()->route('web.index')->withErrors('Error mysql');
@@ -62,9 +63,7 @@ class AutoresController extends Controller
         ]));
         $autor->save();
         if ($request->hasFile('imagen')) {
-            if($carpeta = $autor->getCarpetaImg() == null){
-                dd('error');
-            }
+            $carpeta = $autor->getCarpetaImg();
             $request->file('imagen')->store($carpeta);
             $rutaImg = $this->imagenDesdeCarpeta($carpeta);
             $autor->imagen = $rutaImg;
@@ -72,7 +71,7 @@ class AutoresController extends Controller
         if ($autor->save()) {
             return redirect()->route('autor.index')->with('success', 'Autor creado con exito');
         } else {
-            return redirect()->route('autor.index')->withErrors('Error al cargar autor');
+            return redirect()->route('autor.index')->withErrors('error','Error al cargar autor');
         }
     }
 
@@ -135,26 +134,25 @@ class AutoresController extends Controller
             //TODO: manejar exepcion
             return redirect()->route('web.index');
         }
-
-        $nuevos_valores = $request->all();
         $img = $autor->imagen;
+        $nuevos_valores = $request->all();
 
         if ($request->hasFile('imagen')) {
-            $carpeta = 'autores/' . md5($autor->id_autor);
+            $carpeta = $autor->getCarpetaImg();
             $request->file('imagen')->store($carpeta);
             if (Storage::disk('local')->exists($img)) {
                 Storage::disk('local')->delete($img);
             }
+            $img = $this->imagenDesdeCarpeta($carpeta);
 
-            $img = Storage::files($carpeta)[0];
 
-            $nuevos_valores['imagen'] = $img;
         }
+        $nuevos_valores['imagen'] = $img;
 
         if ($autor->update($nuevos_valores)) {
-            return redirect()->route('autor.index')->with('success', 'Datos actualizados');
+            return redirect()->route('autor.index')->with('success','autor acutializado');
         } else {
-            return redirect()->route('autor.index')->withErrors('Error al actualizar');
+            return redirect()->route('web.index')->with('error','Error al actualizar');
         }
 
     }

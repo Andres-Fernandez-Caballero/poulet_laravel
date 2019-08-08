@@ -37,8 +37,10 @@ class ConsultaController extends Controller
      */
     public function create()
     {
+        $header = ['fondo' => 'poulet-header', 'titulo' => 'Consulta'];
         $categorias = Receta::$LISTA_CATEGORIAS;
         return view('formularios.contacto')
+            ->with('header', $header)
             ->with('categorias', $categorias);
     }
 
@@ -59,9 +61,11 @@ class ConsultaController extends Controller
         }
         $data['sugerencias'] = $listaItems;
         $consulta = new Consulta($data);
-        $consulta->save();
-
-        return redirect()->route('contacto.create')->with('ok', 'Consulta enviada gracias');
+        if ($consulta->save()) {
+            return redirect()->route('contacto.create')->with('success', 'Consulta enviada gracias');
+        } else {
+            return redirect()->route('contacto.create')->with('error', 'No se pudo enviar la consulta');
+        }
     }
 
     /**
@@ -92,7 +96,7 @@ class ConsultaController extends Controller
      */
     public function edit($id)
     {
-        //
+        // No lo necesito por ahora
     }
 
     /**
@@ -104,7 +108,19 @@ class ConsultaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $consulta = Consulta::find($id);
+        } catch (MysqliException $mysqliException) {
+            //TODO: manejar exepcion
+            return redirect()->route('web.index');
+        }
+
+        if ($consulta->update(['revisado' => $request['revisado']])) {
+            return redirect()->route('contacto.index')->with('success', 'Receta actualizada');
+        } else {
+            return redirect()->route('contacto.index')->with('error', 'La Receta no se actualizo');
+        }
+
     }
 
     /**
@@ -122,10 +138,9 @@ class ConsultaController extends Controller
             return redirect()->route('web.index');
         }
         if ($consulta->delete()) {
-            redirect()->route('contacto.index')->with('ok', ['Consulta eliminada']);
+            return redirect()->back()->with('success', 'Consulta eliminada');
         } else {
-            redirect()->route('contacto.index')->withErrors('Error al eliminar');
+            return redirect()->route('contacto.index')->with('error', 'Error al eliminar');
         }
-
     }
 }
